@@ -24,16 +24,30 @@ jobs:
         with:
           command: gitui --version
 
-  lint:
+  lint_and_tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run the sh-checker
-        uses: luizm/action-sh-checker@v0.1.8
+        uses: luizm/action-sh-checker@v0.1.12
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           #SHELLCHECK_OPTS: -e SC1004 # Optional: exclude some shellcheck warnings.
           SHFMT_OPTS: -i 2 # Optional: pass arguments to shfmt.
         with:
           sh_checker_comment: true
+      - name: Install asdf
+        run: |
+          git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+
+      - name: Install bats
+        run: |
+          sudo apt-get install bats
+          bats --version
+
+      - name: Test plugin with bats
+        run: |
+          . $HOME/asdf/asdf.sh
+          asdf plugin-add gitui $GITHUB_WORKSPACE
+          bats test
