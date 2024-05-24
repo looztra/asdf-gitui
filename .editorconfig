@@ -58,21 +58,7 @@ max_line_length = unset
 indent_style = unset
 indent_size = unset
 
-# Fix for tox.ini
-[**/tox.ini]
-max_line_length = unset
-
 [*.txt]
-max_line_length = unset
-
-[.pylintrc]
-max_line_length = unset
-
-[poetry.lock]
-max_line_length = unset
-
-[*.go]
-indent_style = tab
 max_line_length = unset
 
 [*.js]
@@ -80,15 +66,3 @@ max_line_length = unset
 
 [*.{bats,bash}]
 max_line_length = unset
-
-[shared/bats-libs/**/*.*]
-indent_size = unset
-trim_trailing_whitespace = unset
-max_line_length = unset
-insert_final_newline = unset
-
-[**/dist/index.js]
-max_line_length = unset
-indent_style = unset
-indent_size = unset
-insert_final_newline = unset
