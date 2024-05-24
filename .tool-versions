@@ -1,0 +1,5 @@
+editorconfig-checker 2.6.0
+shfmt 3.8.0
+shellcheck 0.10.0
+bats 1.10.0
+pre-commit 3.6.2
