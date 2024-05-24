@@ -43,14 +43,12 @@ download_release() {
   version="$1"
   filename="$2"
 
-  local arch
-  arch="$(get_arch)"
-  local platform
-  platform="$(get_platform)"
+  local platform_and_arch
+  platform_and_arch="$(get_platform_and_arch)"
   local ext
   ext="$(get_ext)"
   # https://github.com/tj-actions/auto-doc/releases/download/v2.7.1/auto-doc_2.7.1_Linux_x86_64.tar.gz
-  url="$GH_REPO/releases/download/v${version}/$(get_tool_cmd)_${version}_${platform}_${arch}${ext}"
+  url="$GH_REPO/releases/download/v${version}/$(get_tool_cmd)_${version}_${platform_and_arch}${ext}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -83,6 +81,20 @@ install_version() {
   )
 }
 
+function get_platform_and_arch() {
+  local arch
+  arch="$(get_arch)"
+  local platform
+  platform="$(get_platform)"
+  local platform_and_arch
+  if [[ "${platform}" == "mac" ]] || [[ "${platform}" == "win" ]]; then
+    platform_and_arch="${platform}"
+  else
+    platform_and_arch="${platform}"_"${arch}"
+  fi
+  echo "${platform_and_arch}"
+}
+
 get_arch() {
   arch=$(uname -m | tr '[:upper:]' '[:lower:]')
   case ${arch} in
@@ -110,13 +122,13 @@ get_platform() {
   plat=$(uname | tr '[:upper:]' '[:lower:]')
   case ${plat} in
   darwin)
-    plat='Darwin'
+    plat='mac'
     ;;
   linux)
-    plat='Linux'
+    plat='linux'
     ;;
   windows)
-    plat='Windows'
+    plat='win'
     ;;
   esac
 
