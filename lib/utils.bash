@@ -44,7 +44,7 @@ download_release() {
   filename="$2"
 
   local platform_and_arch
-  platform_and_arch="$(get_platform_and_arch)"
+  platform_and_arch="$(get_platform_and_arch "${version}")"
   local ext
   ext="$(get_ext)"
   # https://github.com/tj-actions/auto-doc/releases/download/v2.7.1/auto-doc_2.7.1_Linux_x86_64.tar.gz
@@ -81,11 +81,48 @@ install_version() {
   )
 }
 
+# from https://stackoverflow.com/questions/4023830/how-to-compare-two-strings-in-dot-separated-version-format-in-bash
+function vercomp() {
+  if [[ "$1" == "$2" ]]; then
+    return 0
+  fi
+  local IFS=.
+  # shellcheck disable=SC2206
+  local i ver1=($1) ver2=($2)
+  # fill empty fields in ver1 with zeros
+  for ((i = ${#ver1[@]}; i < ${#ver2[@]}; i++)); do
+    ver1[i]=0
+  done
+  for ((i = 0; i < ${#ver1[@]}; i++)); do
+    if [[ -z ${ver2[i]} ]]; then
+      # fill empty fields in ver2 with zeros
+      ver2[i]=0
+    fi
+    if ((10#${ver1[i]} > 10#${ver2[i]})); then
+      return 1
+    fi
+    if ((10#${ver1[i]} < 10#${ver2[i]})); then
+      return 2
+    fi
+  done
+  return 0
+}
+
 function get_platform_and_arch() {
+  local _v=${1?}
+
   local arch
   arch="$(get_arch)"
   local platform
   platform="$(get_platform)"
+
+  if [[ "${arch}" == "x86_64" ]]; then
+    vercomp "${_v}" "0.26.0"
+    case $? in
+    2) arch="musl" ;;
+    esac
+  fi
+
   local platform_and_arch
   if [[ "${platform}" == "mac" ]] || [[ "${platform}" == "win" ]]; then
     platform_and_arch="${platform}"
@@ -101,14 +138,14 @@ get_arch() {
   arm64)
     arch='arm64'
     ;;
-  arm6)
-    arch='arm6'
+  arm7)
+    arch='armv7'
     ;;
   x86_64)
     arch='x86_64'
     ;;
   aarch64)
-    arch='arm64'
+    arch='aarch64'
     ;;
   i386)
     arch='i386'

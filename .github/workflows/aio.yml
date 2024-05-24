@@ -2,13 +2,16 @@ name: AllInOne
 
 on:
   push:
-    paths-ignore:
-      - '**.md'
+    branches:
+      - master
   pull_request:
-    paths-ignore:
-      - '**.md'
-  schedule:
-    - cron: 0 0 * * 5
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.ref }}-${{ github.workflow }}-checks
+  cancel-in-progress: true
 
 jobs:
   plugin_test:
