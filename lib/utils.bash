@@ -48,7 +48,7 @@ download_release() {
   local ext
   ext="$(get_ext)"
   # https://github.com/tj-actions/auto-doc/releases/download/v2.7.1/auto-doc_2.7.1_Linux_x86_64.tar.gz
-  url="$GH_REPO/releases/download/v${version}/$(get_tool_cmd)_${platform_and_arch}${ext}"
+  url="$GH_REPO/releases/download/v${version}/$(get_tool_cmd)-${platform_and_arch}${ext}"
 
   echo "* Downloading $TOOL_NAME release $version..."
   curl "${curl_opts[@]}" -o "$filename" -C - "$url" || fail "Could not download $url"
@@ -90,7 +90,7 @@ function get_platform_and_arch() {
   if [[ "${platform}" == "mac" ]] || [[ "${platform}" == "win" ]]; then
     platform_and_arch="${platform}"
   else
-    platform_and_arch="${platform}"_"${arch}"
+    platform_and_arch="${platform}"-"${arch}"
   fi
   echo "${platform_and_arch}"
 }
