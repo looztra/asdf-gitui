@@ -20,14 +20,3 @@ asdf plugin-add gitui https://github.com/looztra/asdf-gitui
 ## Use
 
 Check out the [asdf](https://github.com/asdf-vm/asdf) readme for instructions on how to install and manage versions of gitui.
-
-## Source code
-
-This source code has been generated with :
-
-```bash
-cookiecutter --overwrite-if-exists --directory plugins/gitui --no-input https://github.com/looztra/cookiecutter-asdf-plugin
-
-```
-
-

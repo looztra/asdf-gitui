@@ -1,3 +1,4 @@
+---
 name: AllInOne
 
 on:
@@ -23,7 +24,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
       - name: asdf_plugin_test
-        uses: asdf-vm/actions/plugin-test@v1
+        uses: asdf-vm/actions/plugin-test@v3
         with:
           command: gitui --version
 
@@ -31,26 +32,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Run the sh-checker
-        uses: luizm/action-sh-checker@v0.1.12
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #SHELLCHECK_OPTS: -e SC1004 # Optional: exclude some shellcheck warnings.
-          SHFMT_OPTS: -i 2 # Optional: pass arguments to shfmt.
-        with:
-          sh_checker_comment: true
-      - name: Install asdf
-        run: |
-          git clone https://github.com/asdf-vm/asdf.git $HOME/asdf
+        uses: actions/checkout@v4
 
-      - name: Install bats
+      - name: Install Tools with asdf
+        uses: asdf-vm/actions/install@v3
+
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-3|${{ hashFiles('.pre-commit-config.yaml') }}
+
+      - name: Run pre-commit checks
+        shell: bash
         run: |
-          sudo apt-get install bats
-          bats --version
+          pre-commit run --all-files
 
       - name: Test plugin with bats
         run: |
-          . $HOME/asdf/asdf.sh
           asdf plugin-add gitui $GITHUB_WORKSPACE
           bats test
