@@ -28,6 +28,17 @@ jobs:
         with:
           command: gitui --version
 
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Tools with asdf
+        uses: asdf-vm/actions/install@v3
+
+      - name: Test plugin with bats
+        run: |
+          asdf plugin-add gitui "${GITHUB_WORKSPACE}"
+          bats --filter-tags type:features test
+
   lint_and_tests:
     runs-on: ubuntu-latest
     steps:
@@ -47,7 +58,6 @@ jobs:
         run: |
           pre-commit run --all-files
 
-      - name: Test plugin with bats
+      - name: Test code with bats
         run: |
-          asdf plugin-add gitui "${GITHUB_WORKSPACE}"
-          bats test
+          bats --filter-tags type:code test

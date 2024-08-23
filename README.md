@@ -24,7 +24,6 @@
 ## Dependencies
 
 - `bash`, `curl`, and [POSIX utilities](https://pubs.opengroup.org/onlinepubs/9699919799/idx/utilities.html).
-- a python 3 runtime (provided through [asdf-python](https://github.com/asdf-community/asdf-python) or not)
 
 ## Install
 
