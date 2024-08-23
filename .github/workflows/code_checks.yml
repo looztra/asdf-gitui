@@ -1,5 +1,5 @@
 ---
-name: AllInOne
+name: Code checks
 
 on:
   push:
@@ -49,5 +49,5 @@ jobs:
 
       - name: Test plugin with bats
         run: |
-          asdf plugin-add gitui $GITHUB_WORKSPACE
+          asdf plugin-add gitui "${GITHUB_WORKSPACE}"
           bats test

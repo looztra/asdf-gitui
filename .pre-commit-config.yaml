@@ -1,7 +1,7 @@
 ---
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.6.0
     hooks:
       - id: trailing-whitespace # Trims trailing whitespace
         exclude: ^shared/bats-libs/.*
@@ -9,6 +9,7 @@ repos:
         args:
           - --allow-multiple-documents
       - id: check-json # Validates JSON files
+        exclude: ^.vscode/.*
       - id: check-toml # Validates TOML files
       - id: check-xml # Validates XML files
       - id: check-added-large-files # Checks for files that are added to the repository that are larger than a threshold
@@ -16,8 +17,14 @@ repos:
       - id: check-merge-conflict # Checks for files that contain merge conflict strings
       - id: detect-private-key # Check for the existence of private keys
       - id: check-executables-have-shebangs # Checks that executables have shebangs
+
+  - repo: https://gitlab.com/bmares/check-json5
+    rev: v1.0.0
+    hooks:
+      - id: check-json5
+
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.6.1
+    rev: 2.7.3
     hooks:
       - id: editorconfig-checker-system # Check editorconfig compliance
         alias: ec
@@ -28,7 +35,7 @@ repos:
       - id: shfmt # Check shell style with shfmt
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
-    rev: v0.12.1
+    rev: v0.13.0
     hooks:
       - id: markdownlint-cli2
 
@@ -42,4 +49,13 @@ repos:
     rev: 0.2.3
     hooks:
       - id: yamlfmt
-        args: [--mapping, '2', --sequence, '4', --offset, '2', --width, '150', --explicit_start]
+        args:
+          - --mapping
+          - '2'
+          - --sequence
+          - '4'
+          - --offset
+          - '2'
+          - --width
+          - '150'
+          - --explicit_start

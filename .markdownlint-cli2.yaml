@@ -2,7 +2,4 @@
 globs:
   - '**/*.md'
   - '!.venv*/**/*.md'
-  - '!**/.tox/**/*.md'
-  - '!**/.pytest_cache'
-  - '!shared/bats-libs/**/*.md'
-  - '!.github/actions/*/node_modules/**/*.md'
+  - '!CHANGELOG.md'
