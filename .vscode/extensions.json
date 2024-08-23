@@ -1,0 +1,12 @@
+{
+  "recommendations": [
+    "EditorConfig.EditorConfig",
+    "yzhang.markdown-all-in-one",
+    "foxundermoon.shell-format",
+    "timonwong.shellcheck",
+    "streetsidesoftware.code-spell-checker",
+    "jetmartin.bats",
+    "redhat.vscode-yaml",
+  ],
+  "unwantedRecommendations": []
+}
