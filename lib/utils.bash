@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-GH_REPO="https://github.com/extrawurst/gitui"
+GH_REPO="https://github.com/gitui-org/gitui"
 TOOL_NAME="gitui"
 TOOL_TEST="gitui --version"
 
