@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1](https://github.com/looztra/asdf-gitui/compare/v1.0.0...v1.0.1) (2025-12-27)
+
+
+### Bug Fixes
+
+* change owner to gitui-org to fix latest redirect ([5cb1a07](https://github.com/looztra/asdf-gitui/commit/5cb1a07baf2e6bd6443b23d28683ca36fe747893))
+* **install:** change owner to gitui-org to fix latest redirect ([#40](https://github.com/looztra/asdf-gitui/issues/40)) ([5cb1a07](https://github.com/looztra/asdf-gitui/commit/5cb1a07baf2e6bd6443b23d28683ca36fe747893))
+
 ## 1.0.0 (2024-08-23)
 
 
