@@ -48,7 +48,7 @@ jobs:
       - name: Install Tools with asdf
         uses: asdf-vm/actions/install@v3
 
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           path: ~/.cache/pre-commit
           key: pre-commit-3|${{ hashFiles('.pre-commit-config.yaml') }}
